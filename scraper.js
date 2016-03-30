@@ -49,7 +49,7 @@ function handleDetail(err, res, body) {
 
   var $cells = $('#contentstart .col-md-8 table').find('th, td');
 
-  var pr = $('#contentstart .col-md-8 table th').eq(2).text().replace(/\:/g,'').toLowerCase() === 'Parliamentary Party'.toLowerCase();
+  var pr = $cells.eq(4).text().replace(/\:/g,'').toLowerCase() === 'Parliamentary Party'.toLowerCase();
 
   data.$name =                    $cells.eq(1).text();
   data.$abbreviation =            $cells.eq(3).text();
