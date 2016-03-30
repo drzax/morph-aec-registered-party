@@ -59,7 +59,7 @@ function handleDetail(err, res, body) {
   data.$notes =                   $cells.eq((pr)?11:9).text();
   data.$correspondence_address =  $cells.eq((pr)?13:11).text();
   data.$deputy_officers =         $cells.eq((pr)?15:13).text();
-  data.$registered_date =         $cells = $('#contentstart .col-md-8 table').prev('p').text().match(/registered on ([0-9]{1,2} [^\s]* [0-9]{4})/)[1];
+  data.$registered_date =         $cells = (new Date($('#contentstart .col-md-8 table').prev('p').text().match(/registered on ([0-9]{1,2} [^\s]* [0-9]{4})/)[1])).toISOString();
   data.$url =                     opts.url;
 
   // Save to DB
