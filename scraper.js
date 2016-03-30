@@ -47,16 +47,18 @@ function handleDetail(err, res, body) {
 
   console.log('Scrape: '+opts.url);
 
-  var $cells = $('#contentstart .col-md-8 table td');
+  var $cells = $('#contentstart .col-md-8 table').find('th, td');
 
-  data.$name =                    $cells.eq(0).text();
-  data.$abbreviation =            $cells.eq(1).text();
-  data.$parliamentary =           $cells.eq(2).text().trim() === 'Yes';
-  data.$officer_name =            $cells.eq(3).text();
-  data.$officer_address =         $cells.eq(4).text();
-  data.$notes =                   $cells.eq(5).text();
-  data.$correspondence_address =  $cells.eq(6).text();
-  data.$deputy_officers =         $cells.eq(7).text();
+  var pr = $('#contentstart .col-md-8 table th').eq(2).text().replace(/\:/g,'').toLowerCase() === 'Parliamentary Party'.toLowerCase();
+
+  data.$name =                    $cells.eq(1).text();
+  data.$abbreviation =            $cells.eq(3).text();
+  data.$parliamentary =           (pr) ? $cells.eq(5).text().trim() === 'Yes' : false;
+  data.$officer_name =            $cells.eq((pr)?8:6).text();
+  data.$officer_address =         $cells.eq((pr)?10:8).text();
+  data.$notes =                   $cells.eq((pr)?11:9).text();
+  data.$correspondence_address =  $cells.eq((pr)?13:11).text();
+  data.$deputy_officers =         $cells.eq((pr)?15:13).text();
   data.$registered_date =         $cells = $('#contentstart .col-md-8 table').prev('p').text().match(/registered on ([0-9]{1,2} [^\s]* [0-9]{4})/)[1];
   data.$url =                     opts.url;
 
